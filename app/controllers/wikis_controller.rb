@@ -1,9 +1,11 @@
 class WikisController < ApplicationController
 
+  before_action :require_sign_in, except: [:index, :show]
+  before_action :is_admin, only: [:destroy]
+
   def index
     @wikis=Wiki.all
   end
-
 
 
   def show
@@ -21,7 +23,6 @@ class WikisController < ApplicationController
     @wiki=Wiki.new
     @wiki.title=params[:wiki][:title]
     @wiki.body=params[:wiki][:body]
-    #@wiki.private=false
 
     if @wiki.save
       flash[:notice] = "Your wiki is saved!"
@@ -32,13 +33,9 @@ class WikisController < ApplicationController
     end
   end
 
-
-
-
   def edit
      @wiki=Wiki.find(params[:id])
   end
-
 
 
   def update
@@ -56,7 +53,6 @@ class WikisController < ApplicationController
   end
 
 
-
   def destroy
      @wiki=Wiki.find(params[:id])
 
@@ -66,6 +62,15 @@ class WikisController < ApplicationController
     else
       flash[:alert]= 'Please try again'
       render :edit
+    end
+  end
+
+private
+
+  def is_admin
+    unless current_user.admin?
+        #flash[:error] = "You must be an admin to do that."
+        redirect_to wikis_path, :flash => { :error => "You must be an admin to do that" }
     end
   end
 

@@ -16,7 +16,7 @@ gem 'coffee-rails', '~> 4.1.0'
 
 gem 'devise'
 
-gem 'pundit'
+gem 'faker'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
