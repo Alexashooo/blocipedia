@@ -8,3 +8,5 @@ module ChargesHelper
  end
 
 end
+
+#Stripe.api_key = Rails.configuration.stripe[:secret_key]
