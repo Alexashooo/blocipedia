@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
 
- resources :wikis
  devise_for :users
+ resources :wikis
+
+ resources :charges, only: [:new, :create]
+ mount StripeEvent::Engine, at: 'http://www.example.com/'
 
  root to: 'wikis#index'
 

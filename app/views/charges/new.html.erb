@@ -1,0 +1,15 @@
+
+
+
+<% if current_user.subscribed %>
+      <h4>You are already subscribed!</h4>
+      <div class="col-md-4">
+         <%= link_to "Unsubscribe", method: refund, class: 'btn btn-success' %>
+      </div>
+
+   <% else %>
+      <%= form_tag charges_path do %>
+         <h4>Fee is $15 once in a lifetime</h4>
+         <script class='stripe-button' src="https://checkout.stripe.com/checkout.js" data-key="<%= @stripe_btn_data[:key] %>" data-amount=<%= @stripe_btn_data[:amount] %> data-description="<%= @stripe_btn_data[:description] %>" ></script>
+      <% end %>
+<% end %>
