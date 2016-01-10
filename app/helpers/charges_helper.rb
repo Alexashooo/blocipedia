@@ -8,3 +8,8 @@ module ChargesHelper
  end
 
 end
+<<<<<<< HEAD
+=======
+
+#Stripe.api_key = Rails.configuration.stripe[:secret_key]
+>>>>>>> Upgrading_account

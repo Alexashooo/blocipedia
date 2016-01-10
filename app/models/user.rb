@@ -4,15 +4,23 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
+  has_one :charge
+
   before_save { self.email = email.downcase }
-  before_save { self.user_role ||= :standard }
+  before_save {
+    if self.subscribed
+       self.user_role =:premium
+     else
+       self.user_role = :standard
+    end
+      }
 
   EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   validates :name, length: { minimum:1, maximum: 100}, presence: true
 
   validates :password, presence: true, length: {minimum: 6}
-  
+
 
   validates :email,
             presence: true,
