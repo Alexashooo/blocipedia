@@ -32,10 +32,18 @@
   </div>
 <% end %>
 
-<h4>Upgrade to premium?</h4>
-<p>With premium account you can write your private Wikis. </p>
+<%if !current_user.subscribed %>
 
-<%= link_to "Yes of course!", new_charge_path %>
+     <h4>Upgrade to premium?</h4>
+     <p>With premium account you can write your private Wikis. </p>
+     <%= button_to "Yes of course!", new_charge_path, :method => "get" %>
+
+<% else %>
+
+     <h4>You want to downgrade your acount? </h4>
+     <%= button_to "Downgrade account", status_changing_charges_path, data: { confirm: "Are you sure?" }, method: :get%></p>
+
+  <% end %>
 
 
 <h3>Cancel my account</h3>

@@ -13,9 +13,8 @@ class ChargesController < ApplicationController
   )
 
 
-  # Where the real magic happens
   charge = Stripe::Charge.create(
-    customer: customer.id, # Note -- this is NOT the user_id in your app
+    customer: customer.id,
     amount: @amount.default,
     description: "BigMoney Membership - #{current_user.email}",
     currency: 'usd'
@@ -50,6 +49,21 @@ class ChargesController < ApplicationController
       amount: @amount.default
     }
   end
+
+
+  def status_changing
+    if current_user.subscribed==false
+      current_user.subscribed=true
+      current_user.save!(:validate => false)
+      redirect_to wikis_path
+    else
+      current_user.subscribed=false
+      current_user.save!(:validate => false)
+      redirect_to wikis_path
+    end
+
+  end
+
 
 
 end

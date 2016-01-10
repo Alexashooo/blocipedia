@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
+  has_one :charge
+
   before_save { self.email = email.downcase }
   before_save {
     if self.subscribed
