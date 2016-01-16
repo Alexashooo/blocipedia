@@ -15,7 +15,7 @@ class ChargesController < ApplicationController
 
 
   # Where the real magic happens
-  
+
   charge = Stripe::Charge.create(
     customer: customer.id,
     amount: @amount.default,
@@ -63,6 +63,8 @@ class ChargesController < ApplicationController
       current_user.subscribed=false
       current_user.save!(:validate => false)
       redirect_to wikis_path
+      wiki_controller=WikisController.new
+      wiki_controller.wikis_after_user_unsubscribe(current_user)
     end
 
   end

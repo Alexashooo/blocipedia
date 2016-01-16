@@ -58,9 +58,5 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super(resource)
   # end
 
-  def unsubscribe
-    current_user.subscribed=false
-  end
 
-  helper_method :unsubscribe
 end

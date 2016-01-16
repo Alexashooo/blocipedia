@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
- devise_for :users, controllers: {registrations: 'users/registrations'}
+ devise_for :users
 
  resources :wikis
 
@@ -13,13 +13,3 @@ Rails.application.routes.draw do
  root to: 'wikis#index'
 
 end
-
-
-#Ensure you have overridden routes for generated controllers in your routes.rb.
- #For example:
-
-   #Rails.application.routes.draw do
-    # devise_for :users, controllers: {
-       #sessions: 'users/sessions'
-    # }
-   #end

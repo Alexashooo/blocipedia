@@ -4,7 +4,11 @@ class WikisController < ApplicationController
   before_action :is_admin, only: [:destroy]
 
   def index
-    @wikis=Wiki.visible_to
+    if user_signed_in? && current_user.subscribed
+       @wikis=Wiki.visible_to_premium(current_user)
+    else
+       @wikis=Wiki.visible_to_standard
+    end
   end
 
 
@@ -23,6 +27,7 @@ class WikisController < ApplicationController
     @wiki.title=params[:wiki][:title]
     @wiki.body=params[:wiki][:body]
     @wiki.user=current_user
+    @wiki.private=params[:wiki][:private]
 
     if @wiki.save
       flash[:notice] = "Your wiki is saved!"
@@ -42,6 +47,8 @@ class WikisController < ApplicationController
      @wiki=Wiki.find(params[:id])
      @wiki.title=params[:wiki][:title]
      @wiki.body=params[:wiki][:body]
+     @wiki.private=params[:wiki][:private]
+     @wiki.user=current_user
 
      if @wiki.save!
        flash[:notice]='Your wiki is updated'
@@ -62,6 +69,15 @@ class WikisController < ApplicationController
     else
       flash[:alert]= 'Please try again'
       render :edit
+    end
+  end
+
+  def wikis_after_user_unsubscribe(user)
+    changing_wikis=[]
+    changing_wikis=Wiki.all_wikis_to_change(user)
+    changing_wikis.each do |wiki|
+      wiki.private=false
+      wiki.save!
     end
   end
 

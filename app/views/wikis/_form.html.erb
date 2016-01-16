@@ -21,6 +21,14 @@
     <%= f.text_area :body, class: 'form-control', placeholder: "Enter body of the Wiki" %>
   </div>
 
+  <% if current_user.user_role == "premium" || current_user.user_role == "admin" %>
+  <div class="form-group">
+     <%= f.label :private, class: 'checkbox' do %>
+        <%= f.check_box :private %> Private wiki
+     <% end %>
+   </div>
+ <% end %>
+
   <div class="actions">
     <%= f.submit "Save", class: 'btn btn-succsess'%>
   </div>
