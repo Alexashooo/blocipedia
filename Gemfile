@@ -24,6 +24,8 @@ gem 'figaro', '1.0'
 
 gem 'stripe_event'
 
+gem 'redcarpet'
+
 gem 'ultrahook'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

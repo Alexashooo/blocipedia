@@ -1,10 +1,12 @@
 
+<% renderer = Redcarpet::Render::HTML.new %>
+ <% markdown = Redcarpet::Markdown.new(renderer) %>
 <div class="col-md-8">
   <%=@wiki.title%>
 </div>
 
 <div class="col-md-8">
-  <%=@wiki.body%>
+  <%=markdown.render(@wiki.body).html_safe%>
 </div>
 
 <%= link_to 'Edit', edit_wiki_path, class: 'btn btn-success'%>
