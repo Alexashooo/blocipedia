@@ -4,7 +4,7 @@ class WikisController < ApplicationController
   before_action :is_admin, only: [:destroy]
 
   def index
-    @wikis=Wiki.all
+    @wikis=Wiki.visible_to
   end
 
 
@@ -15,7 +15,6 @@ class WikisController < ApplicationController
 
   def new
     @wiki=Wiki.new
-    @user=current_user
   end
 
 
@@ -23,6 +22,7 @@ class WikisController < ApplicationController
     @wiki=Wiki.new
     @wiki.title=params[:wiki][:title]
     @wiki.body=params[:wiki][:body]
+    @wiki.user=current_user
 
     if @wiki.save
       flash[:notice] = "Your wiki is saved!"
@@ -69,7 +69,6 @@ private
 
   def is_admin
     unless current_user.admin?
-        #flash[:error] = "You must be an admin to do that."
         redirect_to wikis_path, :flash => { :error => "You must be an admin to do that" }
     end
   end
