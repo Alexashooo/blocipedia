@@ -16,6 +16,6 @@ class Wiki < ActiveRecord::Base
     wikis_to_change=[]
     wikis_to_change=where('(private = ? AND user_id = ?)', true, user.id)
   end
-
+  
 
 end
