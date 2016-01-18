@@ -23,11 +23,7 @@ class WikisController < ApplicationController
 
 
   def create
-    @wiki=Wiki.new
-    @wiki.title=params[:wiki][:title]
-    @wiki.body=params[:wiki][:body]
-    @wiki.user=current_user
-    @wiki.private=params[:wiki][:private]
+    @wiki = current_user.wikis.new(wiki_params)
 
     if @wiki.save
       flash[:notice] = "Your wiki is saved!"
@@ -45,9 +41,7 @@ class WikisController < ApplicationController
 
   def update
      @wiki=Wiki.find(params[:id])
-     @wiki.title=params[:wiki][:title]
-     @wiki.body=params[:wiki][:body]
-     @wiki.private=params[:wiki][:private]
+     @wiki.assign_attributes(wiki_params)
      @wiki.user=current_user
 
      if @wiki.save!
@@ -73,12 +67,7 @@ class WikisController < ApplicationController
   end
 
   def wikis_after_user_unsubscribe(user)
-    changing_wikis=[]
-    changing_wikis=Wiki.all_wikis_to_change(user)
-    changing_wikis.each do |wiki|
-      wiki.private=false
-      wiki.save!
-    end
+    user.wikis.update_all(private: false)
   end
 
 private
@@ -87,6 +76,10 @@ private
     unless current_user.admin?
         redirect_to wikis_path, :flash => { :error => "You must be an admin to do that" }
     end
+  end
+
+  def wiki_params
+      params.require(:wiki).permit(:title, :body, :private)
   end
 
 end
