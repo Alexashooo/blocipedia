@@ -5,9 +5,9 @@ class WikisController < ApplicationController
 
   def index
     if user_signed_in? && current_user.subscribed
-       @wikis=Wiki.visible_to_premium(current_user)
+       @wikis=Wiki.visible_to_prem_or_collab(current_user)
     else
-       @wikis=Wiki.visible_to_standard
+       @wikis = Wiki.visible_to_stand_or_collab(current_user)
     end
   end
 
@@ -26,8 +26,14 @@ class WikisController < ApplicationController
     @wiki = current_user.wikis.new(wiki_params)
 
     if @wiki.save
-      flash[:notice] = "Your wiki is saved!"
-      redirect_to wikis_path
+
+      if current_user.premium? || current_user.admin?
+         redirect_to wiki_collaborators_path(@wiki)
+      else
+         flash[:notice] = "Your wiki is saved!"
+         redirect_to wikis_path
+      end
+
     else
       flash[:error]="There was an error creating the wiki. Please try again"
       render :new
@@ -45,8 +51,8 @@ class WikisController < ApplicationController
      @wiki.user=current_user
 
      if @wiki.save!
-       flash[:notice]='Your wiki is updated'
-       redirect_to wikis_path
+         flash[:notice]='Your wiki is updated'
+         redirect_to wikis_path
      else
        flash[:error]='Somtehing is wrong, please try again'
        render :edit

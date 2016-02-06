@@ -1,0 +1,19 @@
+<%= form_for(@collaborator) do |f| %>
+  <% if @collaborator.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@collaborator.errors.count, "error") %> prohibited this collaborator from being saved:</h2>
+
+      <ul>
+      <% @collaborator.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :user_email%>
+    <%= f.text_field :user_email, class: 'form-control', placeholder: "Enter email of a new collaborator" %>
+  </div>
+
+  <%end%>

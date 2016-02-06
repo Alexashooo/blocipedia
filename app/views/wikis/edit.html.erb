@@ -2,6 +2,10 @@
 
 <%= render partial: 'form'%>
 
+<% if (current_user.premium? || current_user.admin?) && !@wiki.users.include?(current_user) %>
+     <%= link_to "Manage Collaborators", wiki_collaborators_path(@wiki), class: "btn btn-success" %>
+<% end %>
+
 <%= link_to 'Show', @wiki %> |
 <%= link_to 'Back', wikis_path %>
 <%= link_to "Delete Wiki", @wiki, method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure you want to delete this Wiki?'} %>
