@@ -10,7 +10,6 @@ Rails.application.routes.draw do
    get 'status_changing', on: :collection
  end
 
-
  mount StripeEvent::Engine, at: 'http://www.example.com/'
 
  root to: 'wikis#index'

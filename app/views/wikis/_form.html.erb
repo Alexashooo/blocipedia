@@ -24,20 +24,19 @@
   <% if (current_user.premium? || current_user.admin?) && !@wiki.users.include?(current_user) %>
       <div class="form-group">
           <%= f.label :private, class: 'checkbox' do %>
-          <%= f.check_box :private %> Private wiki
-       <% end %>
-     </div>
-
-   <div>
-
-   </div>
+              <%= f.check_box :private %> Private wiki
+          <% end %>
+      </div>
 
      <% else %>
-     <%=f.hidden_field :private, value: false%>
+        <%=f.hidden_field :private, value: false%>
  <% end %>
 
-  <div class="actions">
-    <%= f.submit "Save", class: 'btn btn-succsess'%>
+  <div class="form-group">
+    <%= f.submit "Save", class: 'btn btn-success' %>
+    <%= link_to 'Back', wikis_path, class: 'btn btn-success'%>
+    <%= link_to "Delete Wiki", @wiki, method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure you want to delete this Wiki?'} %>
   </div>
+
 
 <% end %>
