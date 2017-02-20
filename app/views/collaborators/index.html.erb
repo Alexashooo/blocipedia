@@ -1,4 +1,7 @@
-<h4>Choose collaborators <%= @wiki.title %></h4>
+<div class="form-group">
+    <h4>Choose collaborators for<%= @wiki.title %></h4>
+    <%=link_to "Back", edit_wiki_path(@wiki), class: 'btn btn-default'%>
+</div>
 
 <table class="table">
   <% @users.each do |user| %>
@@ -14,5 +17,3 @@
     </tr>
   <% end %>
 </table>
-
-<%=link_to "Back", edit_wiki_path(@wiki)%>
