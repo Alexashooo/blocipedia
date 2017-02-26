@@ -5,8 +5,8 @@ This application is developed with Ruby on Rails and allows users to create publ
 The premium user account requires subscription but allows users not only to have private wikis, but also to add and manage collaborators on the project or topic.
 For this purpose Stripe payment system has been implemented.
 
-![Interface image](assets/images/logo.png)
-Format: ![Alt Text](url)
+![blocipedia_home_page](https://cloud.githubusercontent.com/assets/13839425/23340538/3bdb8f96-fc38-11e6-859b-d8faf5d643a8.png)
+
 
 ## Installation
 You could clone this application:
