@@ -1,5 +1,4 @@
-<snippet>
-  <content>
+
 # Blocipedia
 This application is developed with Ruby on Rails and allows users to create public or private wikis depends on whether they have standard or premium account.
 The premium user account requires subscription but allows users not only to have private wikis, but also to add and manage collaborators on the project or topic.
@@ -21,10 +20,3 @@ If you do not have Bundler installed, please run:
 ```
 gem install Bundler
 ```
-
-
-
-
-  </content>
-
-</snippet>
