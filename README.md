@@ -5,9 +5,8 @@ This application is developed with Ruby on Rails and allows users to create publ
 The premium user account requires subscription but allows users not only to have private wikis, but also to add and manage collaborators on the project or topic.
 For this purpose Stripe payment system has been implemented.
 
-//picture here
-
-
+![Interface image](assets/images/logo.png)
+Format: ![Alt Text](url)
 
 ## Installation
 You could clone this application:
